@@ -17,3 +17,8 @@ def truncate(text: str, max_length: int, suffix: str = '...') -> str:
     if len(text) <= max_length:
         return text
     return text[:max_length - len(suffix)] + suffix
+
+
+def reverse_words(text: str) -> str:
+    """Reverse the order of words in a string."""
+    return ' '.join(text.split()[::-1])
