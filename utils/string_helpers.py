@@ -14,8 +14,12 @@ def remove_extra_spaces(text: str) -> str:
 
 def truncate(text: str, max_length: int, suffix: str = '...') -> str:
     """Truncate a string to a maximum length with optional suffix."""
+    if not text or max_length <= 0:
+        return ''
     if len(text) <= max_length:
         return text
+    if len(suffix) >= max_length:
+        return text[:max_length]
     return text[:max_length - len(suffix)] + suffix
 
 
