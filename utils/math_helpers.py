@@ -4,6 +4,8 @@ Mathematical utility functions
 
 def fibonacci(n: int) -> int:
     """Calculate the nth Fibonacci number."""
+    if n < 0:
+        raise ValueError("Fibonacci is not defined for negative numbers")
     if n <= 1:
         return n
     a, b = 0, 1
