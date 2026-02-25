@@ -26,3 +26,29 @@ def truncate(text: str, max_length: int, suffix: str = '...') -> str:
 def reverse_words(text: str) -> str:
     """Reverse the order of words in a string."""
     return ' '.join(text.split()[::-1])
+
+
+def is_palindrome(text: str, case_sensitive: bool = False) -> bool:
+    """
+    Check if a string is a palindrome.
+    
+    Args:
+        text: The string to check
+        case_sensitive: Whether to consider case when checking (default: False)
+    
+    Returns:
+        True if the string is a palindrome, False otherwise
+    
+    Examples:
+        >>> is_palindrome("racecar")
+        True
+        >>> is_palindrome("RaceCar")
+        True
+        >>> is_palindrome("RaceCar", case_sensitive=True)
+        False
+    """
+    if not text:
+        return True
+    
+    check_text = text if case_sensitive else text.lower()
+    return check_text == check_text[::-1]
