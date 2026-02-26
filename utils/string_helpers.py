@@ -52,3 +52,36 @@ def is_palindrome(text: str, case_sensitive: bool = False) -> bool:
     
     check_text = text if case_sensitive else text.lower()
     return check_text == check_text[::-1]
+
+
+def is_valid_email(email: str) -> bool:
+    """
+    Basic email validation checker.
+    
+    Args:
+        email: The email address to validate
+    
+    Returns:
+        True if email format appears valid, False otherwise
+    
+    Examples:
+        >>> is_valid_email("user@example.com")
+        True
+        >>> is_valid_email("invalid.email")
+        False
+    """
+    if not email or '@' not in email:
+        return False
+    
+    parts = email.split('@')
+    if len(parts) != 2:
+        return False
+    
+    local, domain = parts
+    if not local or not domain:
+        return False
+    
+    if '.' not in domain:
+        return False
+    
+    return True
