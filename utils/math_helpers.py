@@ -1,7 +1,7 @@
 """
 Mathematical utility functions
 """
-from typing import List, Union
+from typing import List, Union, Optional
 
 
 def fibonacci(n: int) -> int:
@@ -87,3 +87,28 @@ def median(numbers: List[Union[int, float]]) -> float:
     else:
         # Odd length: return middle value
         return float(sorted_nums[n // 2])
+
+
+def standard_deviation(numbers: List[Union[int, float]], sample: bool = True) -> Optional[float]:
+    """
+    Calculate the standard deviation of a list of numbers.
+    
+    Args:
+        numbers: List of numeric values
+        sample: If True, calculates sample std dev (n-1), otherwise population std dev (n)
+    
+    Returns:
+        Standard deviation as a float, or None if list is too small
+    
+    Examples:
+        >>> standard_deviation([1, 2, 3, 4, 5])
+        1.5811388300841898
+    """
+    if not numbers or (sample and len(numbers) < 2):
+        return None
+    
+    avg = mean(numbers)
+    variance = sum((x - avg) ** 2 for x in numbers)
+    divisor = len(numbers) - 1 if sample else len(numbers)
+    
+    return (variance / divisor) ** 0.5
