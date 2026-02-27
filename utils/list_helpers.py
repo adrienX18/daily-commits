@@ -1,10 +1,12 @@
 """
 List utility functions for common operations
 """
-from typing import List, Any, Callable
+from typing import List, Any, Callable, TypeVar
+
+T = TypeVar('T')
 
 
-def chunk_list(lst: list, chunk_size: int) -> list:
+def chunk_list(lst: List[T], chunk_size: int) -> List[List[T]]:
     """Split a list into chunks of specified size."""
     return [lst[i:i + chunk_size] for i in range(0, len(lst), chunk_size)]
 
@@ -20,7 +22,7 @@ def flatten(nested_list: list) -> list:
     return result
 
 
-def remove_duplicates(lst: list) -> list:
+def remove_duplicates(lst: List[T]) -> List[T]:
     """Remove duplicates from a list while preserving order."""
     seen = set()
     result = []
@@ -29,6 +31,25 @@ def remove_duplicates(lst: list) -> list:
             seen.add(item)
             result.append(item)
     return result
+
+
+def find_common_elements(list1: List[T], list2: List[T]) -> List[T]:
+    """
+    Find common elements between two lists, preserving order from first list.
+    
+    Args:
+        list1: First list
+        list2: Second list
+    
+    Returns:
+        List of common elements in order they appear in list1
+    
+    Examples:
+        >>> find_common_elements([1, 2, 3, 4], [3, 4, 5, 6])
+        [3, 4]
+    """
+    set2 = set(list2)
+    return [item for item in list1 if item in set2]
 
 
 def rotate_list(lst: List[Any], positions: int) -> List[Any]:
