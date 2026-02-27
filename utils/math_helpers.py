@@ -44,6 +44,35 @@ def lcm(a: int, b: int) -> int:
     return abs(a * b) // gcd(a, b)
 
 
+def factorial(n: int) -> int:
+    """
+    Calculate the factorial of a non-negative integer.
+    
+    Args:
+        n: Non-negative integer
+    
+    Returns:
+        The factorial of n
+    
+    Raises:
+        ValueError: If n is negative
+    
+    Examples:
+        >>> factorial(5)
+        120
+        >>> factorial(0)
+        1
+    """
+    if n < 0:
+        raise ValueError("Factorial is not defined for negative numbers")
+    if n <= 1:
+        return 1
+    result = 1
+    for i in range(2, n + 1):
+        result *= i
+    return result
+
+
 def mean(numbers: List[Union[int, float]]) -> float:
     """
     Calculate the arithmetic mean of a list of numbers.
