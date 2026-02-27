@@ -1,6 +1,8 @@
 """
 String utility functions for common operations
 """
+import re
+
 
 def capitalize_words(text: str) -> str:
     """Capitalize the first letter of each word in a string."""
@@ -56,7 +58,7 @@ def is_palindrome(text: str, case_sensitive: bool = False) -> bool:
 
 def is_valid_email(email: str) -> bool:
     """
-    Basic email validation checker.
+    Email validation with improved regex pattern.
     
     Args:
         email: The email address to validate
@@ -69,19 +71,12 @@ def is_valid_email(email: str) -> bool:
         True
         >>> is_valid_email("invalid.email")
         False
+        >>> is_valid_email("user+tag@example.co.uk")
+        True
     """
-    if not email or '@' not in email:
+    if not email:
         return False
     
-    parts = email.split('@')
-    if len(parts) != 2:
-        return False
-    
-    local, domain = parts
-    if not local or not domain:
-        return False
-    
-    if '.' not in domain:
-        return False
-    
-    return True
+    # More robust email validation pattern
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return bool(re.match(pattern, email))
