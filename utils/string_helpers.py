@@ -6,11 +6,15 @@ import re
 
 def capitalize_words(text: str) -> str:
     """Capitalize the first letter of each word in a string."""
+    if not text:
+        return ''
     return ' '.join(word.capitalize() for word in text.split())
 
 
 def remove_extra_spaces(text: str) -> str:
     """Remove extra whitespace from a string."""
+    if not text:
+        return ''
     return ' '.join(text.split())
 
 
@@ -27,6 +31,8 @@ def truncate(text: str, max_length: int, suffix: str = '...') -> str:
 
 def reverse_words(text: str) -> str:
     """Reverse the order of words in a string."""
+    if not text:
+        return ''
     return ' '.join(text.split()[::-1])
 
 
