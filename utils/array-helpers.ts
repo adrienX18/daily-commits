@@ -3,12 +3,31 @@
  * @param arr - Input array
  * @returns Array with unique values
  * @note Returns empty array if input is null or undefined
+ * @note Uses Map for O(n) performance on large arrays
  */
 export function deduplicate<T>(arr: T[] | null | undefined): T[] {
   if (!arr || !Array.isArray(arr)) {
     return [];
   }
-  return [...new Set(arr)];
+  
+  // For primitive types, Set is optimal
+  if (arr.length === 0 || typeof arr[0] !== 'object') {
+    return [...new Set(arr)];
+  }
+  
+  // For objects, use Map with JSON serialization for deep comparison
+  const seen = new Map<string, T>();
+  const result: T[] = [];
+  
+  for (const item of arr) {
+    const key = JSON.stringify(item);
+    if (!seen.has(key)) {
+      seen.set(key, item);
+      result.push(item);
+    }
+  }
+  
+  return result;
 }
 
 /**
