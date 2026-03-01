@@ -58,3 +58,40 @@ export function chunk<T>(arr: T[], size: number): T[][] {
   }
   return result;
 }
+
+/**
+ * Generate a range of numbers
+ * @param start - Starting number (or stop if only one argument)
+ * @param stop - Ending number (exclusive)
+ * @param step - Step increment (default: 1)
+ * @returns Array of numbers in the specified range
+ * 
+ * @example
+ * range(5)              // [0, 1, 2, 3, 4]
+ * range(2, 6)           // [2, 3, 4, 5]
+ * range(0, 10, 2)       // [0, 2, 4, 6, 8]
+ * range(5, 0, -1)       // [5, 4, 3, 2, 1]
+ */
+export function range(start: number, stop?: number, step: number = 1): number[] {
+  if (step === 0) {
+    return [];
+  }
+  
+  // If only one argument, treat it as stop with start=0
+  let actualStart = stop === undefined ? 0 : start;
+  let actualStop = stop === undefined ? start : stop;
+  
+  const result: number[] = [];
+  
+  if (step > 0) {
+    for (let i = actualStart; i < actualStop; i += step) {
+      result.push(i);
+    }
+  } else {
+    for (let i = actualStart; i > actualStop; i += step) {
+      result.push(i);
+    }
+  }
+  
+  return result;
+}
