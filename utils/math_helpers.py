@@ -118,6 +118,38 @@ def median(numbers: List[Union[int, float]]) -> float:
         return float(sorted_nums[n // 2])
 
 
+def variance(numbers: List[Union[int, float]], sample: bool = True) -> Optional[float]:
+    """
+    Calculate the variance of a list of numbers.
+    
+    Args:
+        numbers: List of numeric values
+        sample: If True, calculates sample variance (n-1), otherwise population variance (n)
+    
+    Returns:
+        Variance as a float, or None if list is too small
+    
+    Raises:
+        ValueError: If the list is empty
+    
+    Examples:
+        >>> variance([1, 2, 3, 4, 5])
+        2.5
+        >>> variance([1, 2, 3, 4, 5], sample=False)
+        2.0
+    """
+    if not numbers:
+        raise ValueError("Cannot calculate variance of empty list")
+    if sample and len(numbers) < 2:
+        return None
+    
+    avg = mean(numbers)
+    squared_diffs = sum((x - avg) ** 2 for x in numbers)
+    divisor = len(numbers) - 1 if sample else len(numbers)
+    
+    return squared_diffs / divisor
+
+
 def standard_deviation(numbers: List[Union[int, float]], sample: bool = True) -> Optional[float]:
     """
     Calculate the standard deviation of a list of numbers.
@@ -133,11 +165,5 @@ def standard_deviation(numbers: List[Union[int, float]], sample: bool = True) ->
         >>> standard_deviation([1, 2, 3, 4, 5])
         1.5811388300841898
     """
-    if not numbers or (sample and len(numbers) < 2):
-        return None
-    
-    avg = mean(numbers)
-    variance = sum((x - avg) ** 2 for x in numbers)
-    divisor = len(numbers) - 1 if sample else len(numbers)
-    
-    return (variance / divisor) ** 0.5
+    var = variance(numbers, sample)
+    return None if var is None else var ** 0.5
