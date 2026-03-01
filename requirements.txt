@@ -6,6 +6,9 @@ pytest-cov>=4.0.0
 black>=22.0.0
 flake8>=6.0.0
 mypy>=1.0.0
+pylint>=2.15.0
+isort>=5.11.0
 
 # Documentation
 sphinx>=5.0.0
+sphinx-rtd-theme>=1.2.0
