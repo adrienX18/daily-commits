@@ -86,3 +86,45 @@ def is_valid_email(email: str) -> bool:
     # More robust email validation pattern
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     return bool(re.match(pattern, email))
+
+
+def sanitize_filename(filename: str, replacement: str = '_') -> str:
+    """
+    Sanitize a string to make it safe for use as a filename.
+    
+    Removes or replaces characters that are invalid on most filesystems
+    including Windows, macOS, and Linux.
+    
+    Args:
+        filename: The string to sanitize
+        replacement: Character to use for replacing invalid characters (default: '_')
+    
+    Returns:
+        A sanitized filename string safe for use on common filesystems
+    
+    Examples:
+        >>> sanitize_filename("report:2024.txt")
+        'report_2024.txt'
+        >>> sanitize_filename("my/file\\name.pdf")
+        'my_file_name.pdf'
+        >>> sanitize_filename("data<>file?.csv", replacement='-')
+        'data--file-.csv'
+    """
+    if not filename:
+        return ''
+    
+    # Invalid characters on Windows, macOS, and Linux filesystems
+    # < > : " / \ | ? * and control characters (0-31)
+    invalid_chars = r'[<>:"/\\|?*\x00-\x1f]'
+    
+    # Replace invalid characters with the replacement character
+    sanitized = re.sub(invalid_chars, replacement, filename)
+    
+    # Remove leading/trailing dots and spaces (problematic on Windows)
+    sanitized = sanitized.strip('. ')
+    
+    # If the result is empty or only contains replacement chars, use a default
+    if not sanitized or sanitized.replace(replacement, '') == '':
+        sanitized = 'unnamed_file'
+    
+    return sanitized
