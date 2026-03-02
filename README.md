@@ -2,6 +2,22 @@
 
 Daily coding practice and experiments by Adrien Lemercier.
 
+## Python Utilities
+
+### String Helpers
+
+Utility functions for string manipulation.
+
+- `capitalize_words(text)` - Capitalize first letter of each word
+- `reverse_string(text)` - Reverse a string
+
+### Math Utils
+
+Mathematical utility functions.
+
+- `fibonacci(n)` - Calculate nth Fibonacci number
+- `is_prime(n)` - Check if a number is prime
+
 ## Array Helpers
 
 Utility functions for common array operations.
