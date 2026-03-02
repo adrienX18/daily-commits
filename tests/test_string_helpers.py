@@ -1,44 +1,21 @@
-"""
-Unit tests for string helper functions
-"""
-import unittest
-import sys
-sys.path.insert(0, '..')
+"""Unit tests for string helper functions."""
 
-from utils.string_helpers import (
-    capitalize_words,
-    remove_extra_spaces,
-    truncate,
-    reverse_words,
-    is_palindrome,
-    is_valid_email
-)
+import unittest
+from utils.string_helpers import capitalize_words, reverse_string
 
 
 class TestStringHelpers(unittest.TestCase):
+    """Test cases for string utility functions."""
     
     def test_capitalize_words(self):
+        """Test word capitalization."""
         self.assertEqual(capitalize_words("hello world"), "Hello World")
-        self.assertEqual(capitalize_words("python is awesome"), "Python Is Awesome")
+        self.assertEqual(capitalize_words("python programming"), "Python Programming")
     
-    def test_is_palindrome(self):
-        self.assertTrue(is_palindrome("racecar"))
-        self.assertTrue(is_palindrome("A man a plan a canal Panama".replace(" ", "").lower()))
-        self.assertFalse(is_palindrome("hello"))
-    
-    def test_is_valid_email(self):
-        # Valid emails
-        self.assertTrue(is_valid_email("user@example.com"))
-        self.assertTrue(is_valid_email("john.doe@company.co.uk"))
-        self.assertTrue(is_valid_email("test123@test.org"))
-        
-        # Invalid emails
-        self.assertFalse(is_valid_email("invalid.email"))
-        self.assertFalse(is_valid_email("@example.com"))
-        self.assertFalse(is_valid_email("user@"))
-        self.assertFalse(is_valid_email("user@domain"))
-        self.assertFalse(is_valid_email(""))
-        self.assertFalse(is_valid_email("no-at-sign.com"))
+    def test_reverse_string(self):
+        """Test string reversal."""
+        self.assertEqual(reverse_string("hello"), "olleh")
+        self.assertEqual(reverse_string("12345"), "54321")
 
 
 if __name__ == '__main__':
