@@ -1,90 +1,123 @@
-"""
-Mathematical utility functions
-"""
+"""Mathematical utility functions."""
+import math
 from typing import List, Union, Optional
+from functools import reduce
+from operator import mul
 
 
-def fibonacci(n: int) -> int:
-    """Calculate the nth Fibonacci number."""
+def factorial(n: int) -> int:
+    """Calculate factorial of n.
+    
+    Args:
+        n: Non-negative integer
+        
+    Returns:
+        Factorial of n
+        
+    Raises:
+        ValueError: If n is negative
+    """
     if n < 0:
-        raise ValueError("Fibonacci is not defined for negative numbers")
-    if n <= 1:
-        return n
-    a, b = 0, 1
-    for _ in range(2, n + 1):
-        a, b = b, a + b
-    return b
+        raise ValueError("Factorial not defined for negative numbers")
+    return math.factorial(n)
+
+
+def gcd(a: int, b: int) -> int:
+    """Calculate greatest common divisor using Euclidean algorithm.
+    
+    Args:
+        a: First integer (can be negative)
+        b: Second integer (can be negative)
+        
+    Returns:
+        Greatest common divisor (always positive)
+        
+    Examples:
+        >>> gcd(12, 8)
+        4
+        >>> gcd(-12, 8)
+        4
+        >>> gcd(0, 5)
+        5
+    """
+    # Handle negative numbers by taking absolute values
+    a, b = abs(a), abs(b)
+    
+    while b:
+        a, b = b, a % b
+    return a
+
+
+def lcm(a: int, b: int) -> int:
+    """Calculate least common multiple.
+    
+    Args:
+        a: First integer
+        b: Second integer
+        
+    Returns:
+        Least common multiple
+    """
+    return abs(a * b) // gcd(a, b) if a and b else 0
 
 
 def is_prime(n: int) -> bool:
-    """Check if a number is prime."""
+    """Check if a number is prime.
+    
+    Args:
+        n: Integer to check
+        
+    Returns:
+        True if n is prime, False otherwise
+    """
     if n < 2:
         return False
     if n == 2:
         return True
     if n % 2 == 0:
         return False
-    for i in range(3, int(n ** 0.5) + 1, 2):
+    
+    # Check odd divisors up to sqrt(n)
+    for i in range(3, int(math.sqrt(n)) + 1, 2):
         if n % i == 0:
             return False
     return True
 
 
-def gcd(a: int, b: int) -> int:
-    """Calculate the greatest common divisor using Euclidean algorithm."""
-    while b:
-        a, b = b, a % b
-    return abs(a)
-
-
-def lcm(a: int, b: int) -> int:
-    """Calculate the least common multiple of two numbers."""
-    if a == 0 or b == 0:
-        return 0
-    return abs(a * b) // gcd(a, b)
-
-
-def factorial(n: int) -> int:
-    """
-    Calculate the factorial of a non-negative integer.
+def fibonacci(n: int) -> int:
+    """Calculate the nth Fibonacci number.
     
     Args:
-        n: Non-negative integer
-    
+        n: Position in Fibonacci sequence (0-indexed)
+        
     Returns:
-        The factorial of n
-    
+        The nth Fibonacci number
+        
     Raises:
         ValueError: If n is negative
-    
-    Examples:
-        >>> factorial(5)
-        120
-        >>> factorial(0)
-        1
     """
     if n < 0:
-        raise ValueError("Factorial is not defined for negative numbers")
+        raise ValueError("Fibonacci not defined for negative indices")
     if n <= 1:
-        return 1
-    result = 1
-    for i in range(2, n + 1):
-        result *= i
-    return result
+        return n
+    
+    a, b = 0, 1
+    for _ in range(2, n + 1):
+        a, b = b, a + b
+    return b
 
 
 def mean(numbers: List[Union[int, float]]) -> float:
-    """
-    Calculate the arithmetic mean of a list of numbers.
+    """Calculate arithmetic mean.
     
     Args:
-        numbers: List of numeric values
-    
+        numbers: List of numbers
+        
     Returns:
-        The arithmetic mean as a float
-    
+        Mean value
+        
     Raises:
-        ValueError: If the list is empty
+        ValueError: If list is empty
     """
     if not numbers:
         raise ValueError("Cannot calculate mean of empty list")
@@ -92,78 +125,24 @@ def mean(numbers: List[Union[int, float]]) -> float:
 
 
 def median(numbers: List[Union[int, float]]) -> float:
-    """
-    Calculate the median of a list of numbers.
+    """Calculate median value.
     
     Args:
-        numbers: List of numeric values
-    
+        numbers: List of numbers
+        
     Returns:
-        The median value as a float
-    
+        Median value
+        
     Raises:
-        ValueError: If the list is empty
+        ValueError: If list is empty
     """
     if not numbers:
         raise ValueError("Cannot calculate median of empty list")
     
-    sorted_nums = sorted(numbers)
-    n = len(sorted_nums)
+    sorted_numbers = sorted(numbers)
+    n = len(sorted_numbers)
+    mid = n // 2
     
     if n % 2 == 0:
-        # Even length: average of two middle values
-        return (sorted_nums[n // 2 - 1] + sorted_nums[n // 2]) / 2
-    else:
-        # Odd length: return middle value
-        return float(sorted_nums[n // 2])
-
-
-def variance(numbers: List[Union[int, float]], sample: bool = True) -> Optional[float]:
-    """
-    Calculate the variance of a list of numbers.
-    
-    Args:
-        numbers: List of numeric values
-        sample: If True, calculates sample variance (n-1), otherwise population variance (n)
-    
-    Returns:
-        Variance as a float, or None if list is too small
-    
-    Raises:
-        ValueError: If the list is empty
-    
-    Examples:
-        >>> variance([1, 2, 3, 4, 5])
-        2.5
-        >>> variance([1, 2, 3, 4, 5], sample=False)
-        2.0
-    """
-    if not numbers:
-        raise ValueError("Cannot calculate variance of empty list")
-    if sample and len(numbers) < 2:
-        return None
-    
-    avg = mean(numbers)
-    squared_diffs = sum((x - avg) ** 2 for x in numbers)
-    divisor = len(numbers) - 1 if sample else len(numbers)
-    
-    return squared_diffs / divisor
-
-
-def standard_deviation(numbers: List[Union[int, float]], sample: bool = True) -> Optional[float]:
-    """
-    Calculate the standard deviation of a list of numbers.
-    
-    Args:
-        numbers: List of numeric values
-        sample: If True, calculates sample std dev (n-1), otherwise population std dev (n)
-    
-    Returns:
-        Standard deviation as a float, or None if list is too small
-    
-    Examples:
-        >>> standard_deviation([1, 2, 3, 4, 5])
-        1.5811388300841898
-    """
-    var = variance(numbers, sample)
-    return None if var is None else var ** 0.5
+        return (sorted_numbers[mid - 1] + sorted_numbers[mid]) / 2
+    return sorted_numbers[mid]
