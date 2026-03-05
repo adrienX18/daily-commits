@@ -1,22 +1,23 @@
 """Unit tests for string helper functions."""
 
-import unittest
-from utils.string_helpers import capitalize_words, reverse_string
+import pytest
+from utils.string_helpers import capitalize_words, reverse_string, count_vowels
 
 
-class TestStringHelpers(unittest.TestCase):
-    """Test cases for string utility functions."""
-    
-    def test_capitalize_words(self):
-        """Test word capitalization."""
-        self.assertEqual(capitalize_words("hello world"), "Hello World")
-        self.assertEqual(capitalize_words("python programming"), "Python Programming")
-    
-    def test_reverse_string(self):
-        """Test string reversal."""
-        self.assertEqual(reverse_string("hello"), "olleh")
-        self.assertEqual(reverse_string("12345"), "54321")
+def test_capitalize_words():
+    """Test word capitalization."""
+    assert capitalize_words("hello world") == "Hello World"
+    assert capitalize_words("python is great") == "Python Is Great"
 
 
-if __name__ == '__main__':
-    unittest.main()
+def test_reverse_string():
+    """Test string reversal."""
+    assert reverse_string("hello") == "olleh"
+    assert reverse_string("12345") == "54321"
+
+
+def test_count_vowels():
+    """Test vowel counting."""
+    assert count_vowels("hello") == 2
+    assert count_vowels("AEIOU") == 5
+    assert count_vowels("xyz") == 0
