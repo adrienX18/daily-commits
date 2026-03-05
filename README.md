@@ -12,14 +12,15 @@ This repository contains a collection of utility functions and helpers for commo
 daily-commits/
 ├── utils/                  # Utility functions library
 │   ├── list_helpers.py    # List operations (flatten, chunk, unique, binary_search)
-│   ├── string_helpers.py  # String manipulation (case conversion, truncate)
+│   ├── string_helpers.py  # String manipulation (case conversion, truncate, vowel counting)
 │   ├── math_helpers.py    # Mathematical functions (gcd, lcm, fibonacci, statistics)
-│   ├── date_helpers.py    # Date/time utilities
+│   ├── date_helpers.py    # Date/time utilities (timestamps, formatting)
 │   ├── file_helpers.py    # File operations
 │   ├── validators.py      # Input validation functions
 │   └── array-helpers.ts   # TypeScript array utilities
 ├── tests/                 # Unit tests
-│   └── test_list_helpers.py
+│   ├── test_list_helpers.py
+│   └── test_string_helpers.py
 ├── examples/              # Usage examples
 └── requirements.txt       # Python dependencies
 ```
@@ -65,15 +66,33 @@ index = binary_search(sorted_list, 7)  # 3
 ### String Helpers
 
 ```python
-from utils.string_helpers import snake_to_camel, kebab_to_snake, truncate
+from utils.string_helpers import capitalize_words, reverse_string, count_vowels
 
-# Case conversions
-camel = snake_to_camel('hello_world')  # 'helloWorld'
-snake = kebab_to_snake('hello-world')  # 'hello_world'
+# Capitalize each word
+text = capitalize_words("hello world")  # "Hello World"
 
-# Truncate long strings
-long_text = "This is a very long string that needs truncation"
-short = truncate(long_text, 20)  # 'This is a very lo...'
+# Reverse a string
+reversed_text = reverse_string("hello")  # "olleh"
+
+# Count vowels
+vowel_count = count_vowels("hello world")  # 3
+```
+
+### Date Helpers
+
+```python
+from utils.date_helpers import get_current_timestamp, days_until, format_date
+from datetime import datetime
+
+# Get current timestamp
+timestamp = get_current_timestamp()  # '2026-03-05T14:37:00.123456'
+
+# Calculate days until a date
+target = datetime(2026, 12, 31)
+days = days_until(target)  # Days remaining in the year
+
+# Format dates
+formatted = format_date(datetime.now(), "%B %d, %Y")  # "March 05, 2026"
 ```
 
 ### Math Helpers
@@ -148,4 +167,4 @@ MIT License - Feel free to use this code however you'd like!
 
 ---
 
-*Last updated: March 4, 2026*
+*Last updated: March 5, 2026*
