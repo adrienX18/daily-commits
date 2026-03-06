@@ -1,6 +1,17 @@
 # Daily Commits 🚀
 
+[![Made with Python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+[![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/adrienX18/daily-commits/graphs/commit-activity)
+[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 Daily coding practice repository - small, meaningful commits to stay consistent and build coding habits.
+
+## 📊 Stats
+
+- **Utilities**: 12+ helper modules
+- **Languages**: Python, TypeScript
+- **Test Coverage**: Comprehensive unit tests
+- **Daily Practice**: Consistent incremental improvements
 
 ## Overview
 
@@ -167,4 +178,4 @@ MIT License - Feel free to use this code however you'd like!
 
 ---
 
-*Last updated: March 5, 2026*
+*Last updated: March 6, 2026*
